@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.raistudies.persistence.CustomerService">
+	
+	<resultMap id="result" type="customer">
+        <result property="customer_id" column="customer_id"/>
+        <result property="name" column="name"/>
+        <result property="standard" column="standard"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+    </resultMap>
+	
+	<select id="getAllUser" resultMap="result">
+		SELECT customer_id,name,standard,age,sex 
+		FROM customer
+	</select>
+	
+	<insert id="saveUser" parameterType="customer">
+		INSERT INTO customer (customer_id,name,standard,age,sex) 
+    	VALUES (#{customer_id},#{name},#{standard},#{age},#{sex})
+	</insert>
+	
+	<update id="updateUser" parameterType="customer"> 
+  		UPDATE customer
+  		SET
+  			name = #{name},  
+			standard = #{standard},  
+			age = #{age},  
+			sex = #{sex} 
+  		WHERE customer_id = #{customer_id} 
+	</update>
+	
+	<delete id="deleteUser" parameterType="int">
+    	DELETE FROM customer
+    	WHERE customer_id = #{customer_id}
+    </delete>
+</mapper>
