@@ -17,7 +17,7 @@
 	    <middleware.home>C:/Oracle/Middleware/Oracle_Home</middleware.home>  <!-- CHANGE ME !!! -->
 	    <admin.server.url>t3://localhost:7001</admin.server.url>
 	    <admin.username>weblogic</admin.username>
-	    <admin.password>Welcome1@</admin.password>		
+	    <admin.password>Welcome1#</admin.password>		
 	</properties>
 	
 	<dependencies>

@@ -8,8 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.raistudies.domain.Customer;
@@ -68,6 +70,33 @@ public class RegistrationController {
 		mv.addObject("customers", customerService.getAllUser());
 		return mv;
 	}
+	
+	@RequestMapping(value="/customer", method=RequestMethod.POST)
+	public @ResponseBody Customer addCustomer(@RequestBody Customer customer, BindingResult result) {
+		System.out.println("Create (REST API) !! " + customer);
+		validator.validate(customer, result);
+		
+		if(!result.hasErrors()){
+			customer.setCustomer_id(UUID.randomUUID().toString());
+			customerService.saveUser(customer);
+		}
+		return customer;
+			
+	}
+
+/*	@RequestMapping(value="/xml/customer", method=RequestMethod.POST)
+	public @ResponseBody Customer addByXML(@RequestBody Customer customer, BindingResult result) {
+		System.out.println("Create (REST API) !! " + customer);
+		validator.validate(customer, result);
+		
+		if(!result.hasErrors()){
+			customer.setCustomer_id(UUID.randomUUID().toString());
+			customerService.saveUser(customer);
+		}
+		return customer;
+			
+	}	*/
+	
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public ModelAndView update(@ModelAttribute(value="customer") Customer customer,BindingResult result){

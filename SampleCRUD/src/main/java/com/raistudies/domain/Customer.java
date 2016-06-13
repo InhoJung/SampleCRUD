@@ -2,15 +2,30 @@ package com.raistudies.domain;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement (name = "CUSTOMER")
+@XmlAccessorType (XmlAccessType.NONE)
 public class Customer implements Serializable{
 	
 	private static final long serialVersionUID = 3647233284813657927L;
 	
+	@XmlElement
 	private String customer_id;
+	
+	@XmlElement
 	private String name = null;
+
+	@XmlElement
 	private String standard = null;
+	
+	@XmlElement
 	private String age;
+	
+	@XmlElement
 	private String sex = null;
 	
 
