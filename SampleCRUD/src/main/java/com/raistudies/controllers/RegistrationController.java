@@ -55,10 +55,17 @@ public class RegistrationController {
 		return "registration";
 	}
 
+	/**
+	 * Add a customer to database in the web application
+	 * @param customer
+	 * @param result
+	 * @return
+	 */
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public ModelAndView add(@ModelAttribute(value="customer") Customer customer,BindingResult result){
 		System.out.println("[add] start");
 		validator.validate(customer, result);
+		System.out.println(customer);
 		ModelAndView mv = new ModelAndView("registration");
 		if(!result.hasErrors()){
 			customer.setCustomer_id(UUID.randomUUID().toString());
@@ -71,33 +78,12 @@ public class RegistrationController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/customer", method=RequestMethod.POST)
-	public @ResponseBody Customer addCustomer(@RequestBody Customer customer, BindingResult result) {
-		System.out.println("Create (REST API) !! " + customer);
-		validator.validate(customer, result);
-		
-		if(!result.hasErrors()){
-			customer.setCustomer_id(UUID.randomUUID().toString());
-			customerService.saveUser(customer);
-		}
-		return customer;
-			
-	}
-
-/*	@RequestMapping(value="/xml/customer", method=RequestMethod.POST)
-	public @ResponseBody Customer addByXML(@RequestBody Customer customer, BindingResult result) {
-		System.out.println("Create (REST API) !! " + customer);
-		validator.validate(customer, result);
-		
-		if(!result.hasErrors()){
-			customer.setCustomer_id(UUID.randomUUID().toString());
-			customerService.saveUser(customer);
-		}
-		return customer;
-			
-	}	*/
-	
-	
+	/**
+	 * Update the customer in a web application
+	 * @param customer
+	 * @param result
+	 * @return
+	 */
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public ModelAndView update(@ModelAttribute(value="customer") Customer customer,BindingResult result){
 		System.out.println("Update !! " + customer);
@@ -113,6 +99,12 @@ public class RegistrationController {
 		return mv;
 	}
 	
+	/**
+	 * Remove the customer in a Web Application
+	 * @param customer
+	 * @param result
+	 * @return
+	 */
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public ModelAndView delete(@ModelAttribute(value="customer") Customer customer,BindingResult result){
 		validator.validate(customer, result);
@@ -128,4 +120,23 @@ public class RegistrationController {
 		mv.addObject("customers", customerService.getAllUser());
 		return mv;
 	}
+	
+	/**
+	 * Add a customer using REST APIs
+	 * @param customer
+	 * @param result
+	 * @return
+	 */
+	@RequestMapping(value="/customer", method=RequestMethod.POST)
+	public @ResponseBody Customer addCustomer(@RequestBody Customer customer, BindingResult result) {
+		System.out.println("Create (REST API) !! " + customer);
+		validator.validate(customer, result);
+		
+		if(!result.hasErrors()){
+			customer.setCustomer_id(UUID.randomUUID().toString());
+			customerService.saveUser(customer);
+		}
+		return customer;
+			
+	}	
 }

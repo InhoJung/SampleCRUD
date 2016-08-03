@@ -20,8 +20,8 @@
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close" p:driverClass="${app.jdbc.driverClassName}"
 		p:jdbcUrl="${app.jdbc.url}" p:user="${app.jdbc.username}" p:password="${app.jdbc.password}"
-		p:acquireIncrement="10" p:idleConnectionTestPeriod="60" p:maxPoolSize="100"
-		p:maxStatements="50" p:minPoolSize="10" />
+		p:acquireIncrement="3" p:idleConnectionTestPeriod="60" p:maxPoolSize="10"
+		p:maxStatements="10" p:minPoolSize="1" />
 
 	<!-- Declare a transaction manager -->
 	<bean id="transactionManager"

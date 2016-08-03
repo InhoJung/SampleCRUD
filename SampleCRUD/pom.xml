@@ -12,12 +12,6 @@
 		<org.springframework-version>3.2.17.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
-		
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	    <middleware.home>C:/Oracle/Middleware/Oracle_Home</middleware.home>  <!-- CHANGE ME !!! -->
-	    <admin.server.url>t3://localhost:7001</admin.server.url>
-	    <admin.username>weblogic</admin.username>
-	    <admin.password>Welcome1#</admin.password>		
 	</properties>
 	
 	<dependencies>
@@ -53,11 +47,17 @@
 
 		<!-- http://mvnrepository.com/artifact/c3p0/c3p0 -->
 		<dependency>
-		    <groupId>c3p0</groupId>
+		    <groupId>com.mchange</groupId>
 		    <artifactId>c3p0</artifactId>
-		    <version>0.9.1.2</version>
+		    <version>0.9.5.1</version>
 		</dependency>
 
+
+	    <dependency>
+		    <groupId>com.oracle</groupId>
+		    <artifactId>ojdbc6</artifactId>
+		    <version>12.1.0.2</version>
+	    </dependency>
 		
 		<!-- AspectJ -->
 		<dependency>
@@ -139,7 +139,7 @@
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
-			<version>3.2.0</version>
+			<version>3.2.1</version>
 		</dependency>
 		
 		<dependency>
@@ -156,6 +156,28 @@
 			<scope>test</scope>
 		</dependency>        
 	</dependencies>
+
+    <repositories>
+    <repository>
+      <id>codelds</id>
+      <url>https://code.lds.org/nexus/content/groups/main-repo</url>
+    </repository>
+  </repositories>
+
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven.oracle.com</id>
+      <name>oracle-maven-repo</name>
+      <url>https://maven.oracle.com</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+	
     <build>
         <plugins>
             <plugin>
@@ -191,36 +213,17 @@
                 <configuration>
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
-            </plugin>
-
-
-            <plugin>
-            	<groupId>com.oracle.weblogic</groupId>
-            	<!-- <artifactId>wls-maven-plugin</artifactId> -->
-            	<artifactId>weblogic-maven-plugin</artifactId>
-            	<version>12.2.1-0-0</version>
-		        <configuration> 
-		          <middlewareHome>${middleware.home}</middlewareHome>
-		        </configuration>             	
-		        <executions>
-		        	<execution>
-			            <phase>pre-integration-test</phase> 
-			            <goals> 
-			              <goal>deploy</goal> 
-			            </goals>	
-				        <configuration> 
-				          <adminurl>${admin.server.url}</adminurl>
-				          <user>${admin.username}</user>
-				          <password>${admin.password}</password>
-				          <name>${project.build.finalName}</name>
-				          <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
-				          <verbose>true</verbose> 
-				        </configuration> 	        
-			        </execution>    	        
-		        </executions>
-
-            </plugin>
-            
+            </plugin>           
         </plugins>
+        <resources>
+        	<resource>
+        		<directory>src/main/java/com/raistudies/persistence</directory>
+        		<includes>
+        			<include>**/*.xml</include>
+        		</includes>
+        		<targetPath>com/raistudies/persistence</targetPath>
+        	</resource>
+        </resources>        
     </build>
+    
 </project>

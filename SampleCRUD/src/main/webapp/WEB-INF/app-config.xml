@@ -27,4 +27,6 @@
 	</bean>
 	
 	<import resource="jdbc-context.xml"/>
+	
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 </beans>

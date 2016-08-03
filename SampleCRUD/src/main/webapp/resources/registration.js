@@ -1,7 +1,8 @@
 var newUserId;
-var addUrl = "app/registration/add";
-var deleteUrl = "app/registration/delete";
-var updateUrl = "app/registration/update";
+var addUrl = "registration/add";
+var deleteUrl = "registration/delete";
+var updateUrl = "registration/update";
+
 
 function setUpdateForm(element){
 	newUserId = document.userForm.customer_id.value;
