@@ -19,7 +19,7 @@ import com.raistudies.persistence.CustomerService;
 import com.raistudies.validator.RegistrationValidator;
 
 @Controller
-@RequestMapping(value="/registration")
+@RequestMapping(value="/registration", produces = "text/plain;charset=UTF-8")
 public class RegistrationController {
 	
 	private RegistrationValidator validator = null;
